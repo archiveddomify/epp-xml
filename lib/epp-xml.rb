@@ -6,15 +6,15 @@ require 'epp-xml/contact'
 
 module EppXml
   class Session
-    extend ::Session
+    extend ::EppXmlCore::Session
   end
 
   class Domain
-    extend ::Domain
+    extend ::EppXmlCore::Domain
   end
 
   class Contact
-    extend ::Contact
+    extend ::EppXmlCore::Contact
   end
 
   def self.generate_xml_from_hash(xml_params, xml, ns = '')

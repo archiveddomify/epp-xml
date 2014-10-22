@@ -1,3 +1,3 @@
-module Contact
+module EppXmlCore::Contact
 
 end
