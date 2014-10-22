@@ -118,4 +118,53 @@ describe EppXml::Domain do
     generated = Nokogiri::XML(xml).to_s.squish
     expect(generated).to eq(expected)
   end
+
+  it 'generates valid info xml' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <info>
+            <domain:info
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+              <domain:name hosts="all">example.ee</domain:name>
+              <domain:authInfo>
+                <domain:pw>2fooBAR</domain:pw>
+              </domain:authInfo>
+            </domain:info>
+          </info>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    generated = Nokogiri::XML(EppXml::Domain.info).to_s.squish
+    expect(generated).to eq(expected)
+
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <info>
+            <domain:info
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+              <domain:name hosts="sub">one.ee</domain:name>
+              <domain:authInfo>
+                <domain:pw>b3rafsla</domain:pw>
+              </domain:authInfo>
+            </domain:info>
+          </info>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = EppXml::Domain.info({
+      name: { value: 'one.ee', attrs: { hosts: 'sub' } },
+      authInfo: {
+        pw: { value: 'b3rafsla' }
+      }
+    })
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
+  end
 end
