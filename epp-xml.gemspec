@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.version     = '0.0.1'
   s.date        = '2014-10-22'
   s.summary     = 'Gem for generating XML for EPP requests'
-  s.authors     = ['Gitlab LTD']
+  s.authors     = ['GiTLAB LTD']
   s.email       = 'enquiries@gitlab.eu'
   s.files       = ['lib/epp-xml.rb']
   s.require_paths = ['lib']
