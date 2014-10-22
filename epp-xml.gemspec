@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.summary     = 'Gem for generating XML for EPP requests'
   s.authors     = ['GiTLAB LTD']
   s.email       = 'enquiries@gitlab.eu'
-  s.files       = ['lib/epp-xml.rb']
+  s.files       = ['lib/epp-xml.rb', 'lib/epp-xml/domain.rb', 'lib/epp-xml/contact.rb', 'lib/epp-xml/session.rb']
   s.require_paths = ['lib']
   s.license       = 'MIT'
 

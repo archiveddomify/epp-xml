@@ -1,7 +1,4 @@
-require 'active_support/core_ext/string/filters'
-require 'nokogiri'
-require 'active_support'
-require 'epp-xml'
+require 'spec_helper'
 
 describe EppXml do
   it 'generates valid login xml' do
@@ -25,7 +22,7 @@ describe EppXml do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(EppXml.login).to_s.squish
+    generated = Nokogiri::XML(EppXml::Session.login).to_s.squish
     expect(generated).to eq(expected)
   end
 

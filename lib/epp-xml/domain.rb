@@ -1,0 +1,3 @@
+module Domain
+
+end

@@ -1,0 +1,3 @@
+module Contact
+
+end
