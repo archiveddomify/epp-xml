@@ -9,7 +9,7 @@ module EppXmlCore
           { hostObj: { value: 'ns2.example.net' } }
         ],
         registrant: { value: 'jd1234' },
-        _other: [
+        _anonymus: [
           { contact: { value: 'sh8013', attrs: { type: 'admin' } } },
           { contact: { value: 'sh8013', attrs: { type: 'tech' } } },
           { contact: { value: 'sh801333', attrs: { type: 'tech' } } }
@@ -18,8 +18,8 @@ module EppXmlCore
 
       xml_params = defaults.deep_merge(xml_params)
 
-      dsnsec_defaults = {
-        _other: [
+      dnssec_defaults = {
+        _anonymus: [
           {  keyData: {
             flags: { value: '257' },
             protocol: { value: '3' },
@@ -29,7 +29,7 @@ module EppXmlCore
         }]
       }
 
-      dnssec_params = dsnsec_defaults.deep_merge(dnssec_params) if dnssec_params != false
+      dnssec_params = dnssec_defaults.deep_merge(dnssec_params) if dnssec_params != false
 
       xml = Builder::XmlMarkup.new
 
@@ -76,5 +76,28 @@ module EppXmlCore
       end
     end
 
+    def check(xml_params = {})
+      defaults = {
+        _anonymus: [
+          { name: { value: 'example.ee'} }
+        ]
+      }
+
+      xml_params = defaults.deep_merge(xml_params)
+
+      xml = Builder::XmlMarkup.new
+
+      xml.instruct!(:xml, standalone: 'no')
+      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
+        xml.command do
+          xml.check do
+            xml.tag!('domain:check', 'xmlns:domain' => 'urn:ietf:params:xml:ns:domain-1.0') do
+              EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
+            end
+          end
+          xml.clTRID 'ABC-12345'
+        end
+      end
+    end
   end
 end

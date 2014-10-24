@@ -81,7 +81,7 @@ describe EppXml::Domain do
         { hostObj: { value: 'ns2.test.net' } }
       ],
       registrant: { value: '32fsdaf' },
-      _other: [
+      _anonymus: [
         { contact: { value: '2323rafaf', attrs: { type: 'admin' } } },
         { contact: { value: '3dgxx', attrs: { type: 'tech' } } },
         { contact: { value: '345xxv', attrs: { type: 'tech' } } }
@@ -112,7 +112,7 @@ describe EppXml::Domain do
       period: nil,
       ns: nil,
       registrant: nil,
-      _other: nil
+      _anonymus: nil
     }, false)
 
     generated = Nokogiri::XML(xml).to_s.squish
@@ -162,6 +162,52 @@ describe EppXml::Domain do
       authInfo: {
         pw: { value: 'b3rafsla' }
       }
+    })
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
+  end
+
+  it 'generates valid check xml' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <check>
+            <domain:check
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+              <domain:name>example.ee</domain:name>
+            </domain:check>
+          </check>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    generated = Nokogiri::XML(EppXml::Domain.check).to_s.squish
+    expect(generated).to eq(expected)
+
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <check>
+            <domain:check
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+              <domain:name>example.ee</domain:name>
+              <domain:name>example2.ee</domain:name>
+              <domain:name>example3.ee</domain:name>
+            </domain:check>
+          </check>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = EppXml::Domain.check({
+      _anonymus: [
+        { name: { value: 'example.ee' } },
+        { name: { value: 'example2.ee' } },
+        { name: { value: 'example3.ee' } }
+      ]
     })
 
     generated = Nokogiri::XML(xml).to_s.squish
