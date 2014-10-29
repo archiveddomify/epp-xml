@@ -117,6 +117,75 @@ describe EppXml::Domain do
 
     generated = Nokogiri::XML(xml).to_s.squish
     expect(generated).to eq(expected)
+
+    ###
+
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <create>
+            <domain:create
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+              <domain:name>one.ee</domain:name>
+              <domain:period unit="d">345</domain:period>
+              <domain:ns>
+                <domain:hostAttr>
+                  <domain:hostName>ns1.example.net</domain:hostName>
+                  <domain:hostAddr ip="v4">192.0.2.2</domain:hostAddr>
+                  <domain:hostAddr ip="v6">1080:0:0:0:8:800:200C:417A</domain:hostAddr>
+                </domain:hostAttr>
+                <domain:hostAttr>
+                 <domain:hostName>ns2.example.net</domain:hostName>
+                </domain:hostAttr>
+              </domain:ns>
+              <domain:registrant>32fsdaf</domain:registrant>
+              <domain:contact type="admin">2323rafaf</domain:contact>
+              <domain:contact type="tech">3dgxx</domain:contact>
+              <domain:contact type="tech">345xxv</domain:contact>
+            </domain:create>
+          </create>
+          <extension>
+          <secDNS:create xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
+            <secDNS:keyData>
+              <secDNS:flags>257</secDNS:flags>
+              <secDNS:protocol>3</secDNS:protocol>
+              <secDNS:alg>5</secDNS:alg>
+              <secDNS:pubKey>AwEAAddt2AkLfYGKgiEZB5SmIF8EvrjxNMH6HtxWEA4RJ9Ao6LCWheg8</secDNS:pubKey>
+            </secDNS:keyData>
+          </secDNS:create>
+          </extension>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = EppXml::Domain.create({
+      name: { value: 'one.ee' },
+      period: { value: '345', attrs: { unit: 'd' } },
+      ns: [
+        { hostAttr:
+          [
+            { hostName: { value: 'ns1.example.net' } },
+            { hostAddr: { value: '192.0.2.2', attrs: { ip: 'v4' } } },
+            { hostAddr: { value: '1080:0:0:0:8:800:200C:417A', attrs: { ip: 'v6' } } }
+          ]
+        },
+        { hostAttr:
+          [
+            { hostName: { value: 'ns2.example.net' } }
+          ]
+        }
+      ],
+      registrant: { value: '32fsdaf' },
+      _anonymus: [
+        { contact: { value: '2323rafaf', attrs: { type: 'admin' } } },
+        { contact: { value: '3dgxx', attrs: { type: 'tech' } } },
+        { contact: { value: '345xxv', attrs: { type: 'tech' } } }
+      ]
+    })
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
   end
 
   it 'generates valid info xml' do

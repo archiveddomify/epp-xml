@@ -20,4 +20,3 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '~> 2.1'
 end
-
