@@ -146,12 +146,18 @@ describe EppXml::Domain do
           </create>
           <extension>
           <secDNS:create xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
-            <secDNS:keyData>
-              <secDNS:flags>257</secDNS:flags>
-              <secDNS:protocol>3</secDNS:protocol>
-              <secDNS:alg>5</secDNS:alg>
-              <secDNS:pubKey>AwEAAddt2AkLfYGKgiEZB5SmIF8EvrjxNMH6HtxWEA4RJ9Ao6LCWheg8</secDNS:pubKey>
-            </secDNS:keyData>
+            <secDNS:dsData>
+              <secDNS:keyTag>12345</secDNS:keyTag>
+              <secDNS:alg>3</secDNS:alg>
+              <secDNS:digestType>1</secDNS:digestType>
+              <secDNS:digest>49FD46E6C4B45C55D4AC</secDNS:digest>
+              <secDNS:keyData>
+                <secDNS:flags>0</secDNS:flags>
+                <secDNS:protocol>3</secDNS:protocol>
+                <secDNS:alg>5</secDNS:alg>
+                <secDNS:pubKey>700b97b591ed27ec2590d19f06f88bba700b97b591ed27ec2590d19f</secDNS:pubKey>
+              </secDNS:keyData>
+            </secDNS:dsData>
           </secDNS:create>
           </extension>
           <clTRID>ABC-12345</clTRID>
@@ -181,6 +187,22 @@ describe EppXml::Domain do
         { contact: { value: '2323rafaf', attrs: { type: 'admin' } } },
         { contact: { value: '3dgxx', attrs: { type: 'tech' } } },
         { contact: { value: '345xxv', attrs: { type: 'tech' } } }
+      ]
+    }, {
+      _anonymus: [
+        { dsData: {
+            keyTag: { value: '12345' },
+            alg: { value: '3' },
+            digestType: { value: '1' },
+            digest: { value: '49FD46E6C4B45C55D4AC' },
+            keyData: {
+              flags: { value: '0' },
+              protocol: { value: '3' },
+              alg: { value: '5' },
+              pubKey: { value: '700b97b591ed27ec2590d19f06f88bba700b97b591ed27ec2590d19f' }
+            }
+          }
+        }
       ]
     })
 
