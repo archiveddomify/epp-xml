@@ -455,5 +455,9 @@ describe EppXml::Domain do
     })
     generated = Nokogiri::XML(xml).to_s.squish
     expect(generated).to eq(expected)
+
+    ## Update extension
+
+    ##TODO
   end
 end
