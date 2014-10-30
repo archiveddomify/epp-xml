@@ -458,6 +458,84 @@ describe EppXml::Domain do
 
     ## Update extension
 
-    ##TODO
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <update>
+            <domain:update xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+              <domain:name>example.ee</domain:name>
+            </domain:update>
+          </update>
+          <extension>
+            <secDNS:create xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
+              <secDNS:add>
+                <secDNS:keyData>
+                  <secDNS:flags>0</secDNS:flags>
+                  <secDNS:protocol>3</secDNS:protocol>
+                  <secDNS:alg>5</secDNS:alg>
+                  <secDNS:pubKey>700b97b591ed27ec2590d19f06f88bba700b97b591ed27ec2590d19f</secDNS:pubKey>
+                </secDNS:keyData>
+                <secDNS:keyData>
+                  <secDNS:flags>256</secDNS:flags>
+                  <secDNS:protocol>3</secDNS:protocol>
+                  <secDNS:alg>254</secDNS:alg>
+                  <secDNS:pubKey>841936717ae427ace63c28d04918569a841936717ae427ace63c28d0</secDNS:pubKey>
+                </secDNS:keyData>
+                <secDNS:dsData>
+                  <secDNS:keyTag>12345</secDNS:keyTag>
+                  <secDNS:alg>3</secDNS:alg>
+                  <secDNS:digestType>1</secDNS:digestType>
+                  <secDNS:digest>49FD46E6C4B45C55D4AC</secDNS:digest>
+                  <secDNS:keyData>
+                    <secDNS:flags>0</secDNS:flags>
+                    <secDNS:protocol>3</secDNS:protocol>
+                    <secDNS:alg>5</secDNS:alg>
+                    <secDNS:pubKey>700b97b591ed27ec2590d19f06f88bba700b97b591ed27ec2590d19f</secDNS:pubKey>
+                  </secDNS:keyData>
+                </secDNS:dsData>
+              </secDNS:add>
+            </secDNS:create>
+          </extension>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = EppXml::Domain.update({}, {
+      add: [
+        { keyData: {
+            flags: { value: '0' },
+            protocol: { value: '3' },
+            alg: { value: '5' },
+            pubKey: { value: '700b97b591ed27ec2590d19f06f88bba700b97b591ed27ec2590d19f' }
+          }
+        },
+        {
+          keyData: {
+            flags: { value: '256' },
+            protocol: { value: '3' },
+            alg: { value: '254' },
+            pubKey: { value: '841936717ae427ace63c28d04918569a841936717ae427ace63c28d0' }
+          }
+        },
+        { dsData: {
+            keyTag: { value: '12345' },
+            alg: { value: '3' },
+            digestType: { value: '1' },
+            digest: { value: '49FD46E6C4B45C55D4AC' },
+            keyData: {
+              flags: { value: '0' },
+              protocol: { value: '3' },
+              alg: { value: '5' },
+              pubKey: { value: '700b97b591ed27ec2590d19f06f88bba700b97b591ed27ec2590d19f' }
+            }
+          }
+        }
+      ]
+    })
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
+
   end
 end
