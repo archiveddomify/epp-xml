@@ -538,4 +538,38 @@ describe EppXml::Domain do
     expect(generated).to eq(expected)
 
   end
+
+  it 'generates valid delete xml' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <delete>
+            <domain:delete
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" />
+          </delete>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    generated = Nokogiri::XML(EppXml::Domain.delete).to_s.squish
+    expect(generated).to eq(expected)
+
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <delete>
+            <domain:delete
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+              <domain:name>one.ee</domain:name>
+            </domain:delete>
+          </delete>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    generated = Nokogiri::XML(EppXml::Domain.delete(name: { value: 'one.ee' })).to_s.squish
+    expect(generated).to eq(expected)
+  end
 end
