@@ -572,4 +572,46 @@ describe EppXml::Domain do
     generated = Nokogiri::XML(EppXml::Domain.delete(name: { value: 'one.ee' })).to_s.squish
     expect(generated).to eq(expected)
   end
+
+  it 'generates valid renew xml' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <renew>
+            <domain:renew
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" />
+          </renew>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    generated = Nokogiri::XML(EppXml::Domain.renew).to_s.squish
+    expect(generated).to eq(expected)
+
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <renew>
+            <domain:renew
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+              <domain:name>one.ee</domain:name>
+              <domain:curExpDate>2009-11-15</domain:curExpDate>
+              <domain:period unit="d">365</domain:period>
+            </domain:renew>
+          </renew>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = EppXml::Domain.renew({
+      name: { value: 'one.ee' },
+      curExpDate: {value: '2009-11-15' },
+      period: { value: '365', attrs: { unit: 'd' } }
+    })
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
+  end
 end
