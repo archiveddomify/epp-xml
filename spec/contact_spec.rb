@@ -89,5 +89,48 @@ describe EppXml::Contact do
     expect(generated).to eq(expected)
   end
 
+  it 'generates valid transfer xml' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <transfer op="query">
+            <contact:transfer
+             xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" />
+          </transfer>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    generated = Nokogiri::XML(EppXml::Contact.transfer).to_s.squish
+    expect(generated).to eq(expected)
+
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <transfer op="query">
+            <contact:transfer
+             xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+              <contact:id>sh8013</contact:id>
+              <contact:authInfo>
+                <contact:pw>2fooBAR</contact:pw>
+              </contact:authInfo>
+            </contact:transfer>
+          </transfer>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = EppXml::Contact.transfer({
+      id: { value: 'sh8013' },
+      authInfo: {
+        pw: { value: '2fooBAR' }
+      }
+    }, 'query')
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
+  end
 
 end
