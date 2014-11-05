@@ -217,4 +217,41 @@ describe EppXml::Contact do
     expect(generated).to eq(expected)
   end
 
+  it 'generates valid delete xml' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <delete>
+            <contact:delete
+             xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" />
+          </delete>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    generated = Nokogiri::XML(EppXml::Contact.delete).to_s.squish
+    expect(generated).to eq(expected)
+
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <delete>
+            <contact:delete
+             xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+              <contact:id>sh8013</contact:id>
+            </contact:delete>
+          </delete>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = EppXml::Contact.delete({
+      id: { value: 'sh8013' }
+    })
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
+  end
 end

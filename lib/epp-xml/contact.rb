@@ -1,51 +1,19 @@
 module EppXmlCore
   module Contact
     def create(xml_params = {})
-      xml = Builder::XmlMarkup.new
-
-      xml.instruct!(:xml, standalone: 'no')
-      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
-        xml.command do
-          xml.create do
-            xml.tag!('contact:create', 'xmlns:contact' => 'urn:ietf:params:xml:ns:contact-1.0') do
-              EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
-            end
-          end
-          xml.clTRID 'ABC-12345'
-        end
-      end
+      build('create', xml_params)
     end
 
     def check(xml_params = {})
-      xml = Builder::XmlMarkup.new
-
-      xml.instruct!(:xml, standalone: 'no')
-      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
-        xml.command do
-          xml.check do
-            xml.tag!('contact:check', 'xmlns:contact' => 'urn:ietf:params:xml:ns:contact-1.0') do
-              EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
-            end
-          end
-          xml.clTRID 'ABC-12345'
-        end
-      end
+      build('check', xml_params)
     end
 
     def info(xml_params = {})
-      xml = Builder::XmlMarkup.new
+      build('info', xml_params)
+    end
 
-      xml.instruct!(:xml, standalone: 'no')
-      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
-        xml.command do
-          xml.info do
-            xml.tag!('contact:info', 'xmlns:contact' => 'urn:ietf:params:xml:ns:contact-1.0') do
-              EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
-            end
-          end
-          xml.clTRID 'ABC-12345'
-        end
-      end
+    def delete(xml_params = {})
+      build('delete', xml_params)
     end
 
     def transfer(xml_params = {}, op = 'query')
@@ -56,6 +24,24 @@ module EppXmlCore
         xml.command do
           xml.transfer('op' => op) do
             xml.tag!('contact:transfer', 'xmlns:contact' => 'urn:ietf:params:xml:ns:contact-1.0') do
+              EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
+            end
+          end
+          xml.clTRID 'ABC-12345'
+        end
+      end
+    end
+
+    private
+
+    def build(command, xml_params)
+      xml = Builder::XmlMarkup.new
+
+      xml.instruct!(:xml, standalone: 'no')
+      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
+        xml.command do
+          xml.tag!(command) do
+            xml.tag!("contact:#{command}", 'xmlns:contact' => 'urn:ietf:params:xml:ns:contact-1.0') do
               EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
             end
           end
