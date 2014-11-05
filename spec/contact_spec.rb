@@ -254,4 +254,94 @@ describe EppXml::Contact do
     generated = Nokogiri::XML(xml).to_s.squish
     expect(generated).to eq(expected)
   end
+
+  it 'generates valid update xml' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <update>
+            <contact:update
+             xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" />
+          </update>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    generated = Nokogiri::XML(EppXml::Contact.update).to_s.squish
+    expect(generated).to eq(expected)
+
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <update>
+            <contact:update
+             xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+              <contact:id>sh8013</contact:id>
+              <contact:add>
+                <contact:status s="clientDeleteProhibited"/>
+              </contact:add>
+              <contact:chg>
+                <contact:postalInfo type="int">
+                  <contact:org/>
+                  <contact:addr>
+                    <contact:street>124 Example Dr.</contact:street>
+                    <contact:street>Suite 200</contact:street>
+                    <contact:city>Dulles</contact:city>
+                    <contact:sp>VA</contact:sp>
+                    <contact:pc>20166-6503</contact:pc>
+                    <contact:cc>US</contact:cc>
+                  </contact:addr>
+                </contact:postalInfo>
+                <contact:voice>+1.7034444444</contact:voice>
+                <contact:fax/>
+                <contact:authInfo>
+                  <contact:pw>2fooBAR</contact:pw>
+                </contact:authInfo>
+                <contact:disclose flag="1">
+                  <contact:voice/>
+                  <contact:email/>
+                </contact:disclose>
+              </contact:chg>
+            </contact:update>
+          </update>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = EppXml::Contact.update({
+      id: { value: 'sh8013' },
+      add: [
+        { status: { value: '', attrs: { s: 'clientDeleteProhibited' } } }
+      ],
+      chg: [
+        {
+          postalInfo: { value: {
+            org: { value: '' },
+            addr: [
+              { street: { value: '124 Example Dr.' } },
+              { street: { value: 'Suite 200' } },
+              { city: { value: 'Dulles' } },
+              { sp: { value: 'VA' } },
+              { pc: { value: '20166-6503' } },
+              { cc: { value: 'US' } }
+            ]
+          }, attrs: { type: 'int' } }
+        },
+        { voice: { value: '+1.7034444444' } },
+        { fax: { value: ''} },
+        { authInfo: { pw: { value: '2fooBAR' } } },
+        {
+          disclose: { value: {
+            voice: { value: '' },
+            email: { value: '' }
+          }, attrs: { flag: '1' } }
+        }
+      ]
+    })
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
+  end
 end

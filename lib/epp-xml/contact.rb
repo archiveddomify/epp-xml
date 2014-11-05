@@ -16,6 +16,10 @@ module EppXmlCore
       build('delete', xml_params)
     end
 
+    def update(xml_params = {})
+      build('update', xml_params)
+    end
+
     def transfer(xml_params = {}, op = 'query')
       xml = Builder::XmlMarkup.new
 
