@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'epp-xml'
-  s.version     = '0.6.0'
+  s.version     = '0.7.0'
   s.date        = '2014-10-22'
   s.summary     = 'Gem for generating XML for EPP requests'
   s.description = 'Gem for generating valid XML for Extensible Provisioning Protocol requests'
