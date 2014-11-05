@@ -133,4 +133,88 @@ describe EppXml::Contact do
     expect(generated).to eq(expected)
   end
 
+  it 'generates valid create xml' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <create>
+            <contact:create
+             xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" />
+          </create>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    generated = Nokogiri::XML(EppXml::Contact.create).to_s.squish
+    expect(generated).to eq(expected)
+
+    ###
+
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <create>
+            <contact:create
+             xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+              <contact:id>sh8013</contact:id>
+              <contact:postalInfo type="int">
+                <contact:name>John Doe</contact:name>
+                <contact:org>Example Inc.</contact:org>
+                <contact:addr>
+                  <contact:street>123 Example Dr.</contact:street>
+                  <contact:street>Suite 100</contact:street>
+                  <contact:city>Dulles</contact:city>
+                  <contact:sp>VA</contact:sp>
+                  <contact:pc>20166-6503</contact:pc>
+                  <contact:cc>US</contact:cc>
+                </contact:addr>
+              </contact:postalInfo>
+              <contact:voice x="1234">+1.7035555555</contact:voice>
+              <contact:fax>+1.7035555556</contact:fax>
+              <contact:email>jdoe@example.com</contact:email>
+              <contact:authInfo>
+                <contact:pw>2fooBAR</contact:pw>
+              </contact:authInfo>
+              <contact:disclose flag="0">
+                <contact:voice/>
+                <contact:email/>
+              </contact:disclose>
+            </contact:create>
+          </create>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = EppXml::Contact.create({
+      id: { value: 'sh8013' },
+      postalInfo: { value: {
+        name: { value: 'John Doe' },
+        org: { value: 'Example Inc.' },
+        addr: [
+          { street: { value: '123 Example Dr.' } },
+          { street: { value: 'Suite 100' } },
+          { city: { value: 'Dulles' } },
+          { sp: { value: 'VA' } },
+          { pc: { value: '20166-6503' } },
+          { cc: { value: 'US' } }
+        ]
+      }, attrs: { type: 'int' } },
+      voice: { value: '+1.7035555555', attrs: { x: '1234' } },
+      fax: { value: '+1.7035555556' },
+      email: { value: 'jdoe@example.com' },
+      authInfo: {
+        pw: { value: '2fooBAR' }
+      },
+      disclose: { value: {
+        voice: { value: '' },
+        email: { value: '' }
+      }, attrs: { flag: '0' } }
+    })
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
+  end
+
 end

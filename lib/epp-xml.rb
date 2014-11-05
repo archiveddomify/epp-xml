@@ -24,8 +24,10 @@ module EppXml
         xml.tag!("#{ns}#{k}", v[:value], v[:attrs])
       # Value is a hash which is nested
       elsif v.is_a?(Hash)
-        xml.tag!("#{ns}#{k}") do
-          generate_xml_from_hash(v, xml, ns)
+        attrs = v.delete(:attrs)
+        value = v.delete(:value) || v
+        xml.tag!("#{ns}#{k}", attrs) do
+          generate_xml_from_hash(value, xml, ns)
         end
       # Value is an array
       elsif v.is_a?(Array)
