@@ -1,36 +1,22 @@
 module EppXmlCore
   module Domain
+    def info(xml_params = {})
+      build('info', xml_params)
+    end
+
+    def check(xml_params = {})
+      build('check', xml_params)
+    end
+
+    def delete(xml_params = {})
+      build('delete', xml_params)
+    end
+
+    def renew(xml_params = {})
+      build('renew', xml_params)
+    end
+
     def create(xml_params = {}, dnssec_params = {})
-      defaults = {
-        name: { value: 'example.ee' },
-        period: { value: '1', attrs: { unit: 'y' } },
-        ns: [
-          { hostObj: { value: 'ns1.example.net' } },
-          { hostObj: { value: 'ns2.example.net' } }
-        ],
-        registrant: { value: 'jd1234' },
-        _anonymus: [
-          { contact: { value: 'sh8013', attrs: { type: 'admin' } } },
-          { contact: { value: 'sh8013', attrs: { type: 'tech' } } },
-          { contact: { value: 'sh801333', attrs: { type: 'tech' } } }
-        ]
-      }
-
-      xml_params = defaults.deep_merge(xml_params)
-
-      dnssec_defaults = {
-        _anonymus: [
-          {  keyData: {
-            flags: { value: '257' },
-            protocol: { value: '3' },
-            alg: { value: '5' },
-            pubKey: { value: 'AwEAAddt2AkLfYGKgiEZB5SmIF8EvrjxNMH6HtxWEA4RJ9Ao6LCWheg8' }
-          }
-        }]
-      }
-
-      dnssec_params = dnssec_defaults.deep_merge(dnssec_params) if dnssec_params != false
-
       xml = Builder::XmlMarkup.new
 
       xml.instruct!(:xml, standalone: 'no')
@@ -51,62 +37,7 @@ module EppXmlCore
       end
     end
 
-    def check(xml_params = {})
-      defaults = {
-        _anonymus: [
-          { name: { value: 'example.ee'} }
-        ]
-      }
-
-      xml_params = defaults.deep_merge(xml_params)
-
-      xml = Builder::XmlMarkup.new
-
-      xml.instruct!(:xml, standalone: 'no')
-      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
-        xml.command do
-          xml.check do
-            xml.tag!('domain:check', 'xmlns:domain' => 'urn:ietf:params:xml:ns:domain-1.0') do
-              EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
-            end
-          end
-          xml.clTRID 'ABC-12345'
-        end
-      end
-    end
-
-    def info(xml_params = {})
-      defaults = {
-        name: { value: 'example.ee', attrs: { hosts: 'all' } },
-        authInfo: {
-          pw: { value: '2fooBAR' }
-        }
-      }
-
-      xml_params = defaults.deep_merge(xml_params)
-
-      xml = Builder::XmlMarkup.new
-
-      xml.instruct!(:xml, standalone: 'no')
-      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
-        xml.command do
-          xml.info do
-            xml.tag!('domain:info', 'xmlns:domain' => 'urn:ietf:params:xml:ns:domain-1.0') do
-              EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
-            end
-          end
-          xml.clTRID 'ABC-12345'
-        end
-      end
-    end
-
     def update(xml_params = {}, dnssec_params = false)
-      defaults = {
-        name: { value: 'example.ee' }
-      }
-
-      xml_params = defaults.deep_merge(xml_params)
-
       xml = Builder::XmlMarkup.new
 
       xml.instruct!(:xml, standalone: 'no')
@@ -128,38 +59,6 @@ module EppXmlCore
       end
     end
 
-    def delete(xml_params = {})
-      xml = Builder::XmlMarkup.new
-
-      xml.instruct!(:xml, standalone: 'no')
-      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
-        xml.command do
-          xml.delete do
-            xml.tag!('domain:delete', 'xmlns:domain' => 'urn:ietf:params:xml:ns:domain-1.0') do
-              EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
-            end
-          end
-          xml.clTRID 'ABC-12345'
-        end
-      end
-    end
-
-    def renew(xml_params = {})
-      xml = Builder::XmlMarkup.new
-
-      xml.instruct!(:xml, standalone: 'no')
-      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
-        xml.command do
-          xml.renew do
-            xml.tag!('domain:renew', 'xmlns:domain' => 'urn:ietf:params:xml:ns:domain-1.0') do
-              EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
-            end
-          end
-          xml.clTRID 'ABC-12345'
-        end
-      end
-    end
-
     def transfer(xml_params = {}, op = 'query')
       xml = Builder::XmlMarkup.new
 
@@ -168,6 +67,24 @@ module EppXmlCore
         xml.command do
           xml.transfer('op' => op) do
             xml.tag!('domain:transfer', 'xmlns:domain' => 'urn:ietf:params:xml:ns:domain-1.0') do
+              EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
+            end
+          end
+          xml.clTRID 'ABC-12345'
+        end
+      end
+    end
+
+    private
+
+    def build(command, xml_params)
+      xml = Builder::XmlMarkup.new
+
+      xml.instruct!(:xml, standalone: 'no')
+      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
+        xml.command do
+          xml.tag!(command) do
+            xml.tag!("domain:#{command}", 'xmlns:domain' => 'urn:ietf:params:xml:ns:domain-1.0') do
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end

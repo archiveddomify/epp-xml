@@ -7,28 +7,10 @@ describe EppXml::Domain do
         <command>
           <create>
             <domain:create
-             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-              <domain:name>example.ee</domain:name>
-              <domain:period unit="y">1</domain:period>
-              <domain:ns>
-                <domain:hostObj>ns1.example.net</domain:hostObj>
-                <domain:hostObj>ns2.example.net</domain:hostObj>
-              </domain:ns>
-              <domain:registrant>jd1234</domain:registrant>
-              <domain:contact type="admin">sh8013</domain:contact>
-              <domain:contact type="tech">sh8013</domain:contact>
-              <domain:contact type="tech">sh801333</domain:contact>
-            </domain:create>
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" />
           </create>
           <extension>
-          <secDNS:create xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
-            <secDNS:keyData>
-              <secDNS:flags>257</secDNS:flags>
-              <secDNS:protocol>3</secDNS:protocol>
-              <secDNS:alg>5</secDNS:alg>
-              <secDNS:pubKey>AwEAAddt2AkLfYGKgiEZB5SmIF8EvrjxNMH6HtxWEA4RJ9Ao6LCWheg8</secDNS:pubKey>
-            </secDNS:keyData>
-          </secDNS:create>
+            <secDNS:create xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1" />
           </extension>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -59,14 +41,7 @@ describe EppXml::Domain do
             </domain:create>
           </create>
           <extension>
-          <secDNS:create xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
-            <secDNS:keyData>
-              <secDNS:flags>257</secDNS:flags>
-              <secDNS:protocol>3</secDNS:protocol>
-              <secDNS:alg>5</secDNS:alg>
-              <secDNS:pubKey>AwEAAddt2AkLfYGKgiEZB5SmIF8EvrjxNMH6HtxWEA4RJ9Ao6LCWheg8</secDNS:pubKey>
-            </secDNS:keyData>
-          </secDNS:create>
+            <secDNS:create xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1" />
           </extension>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -216,12 +191,7 @@ describe EppXml::Domain do
         <command>
           <info>
             <domain:info
-             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-              <domain:name hosts="all">example.ee</domain:name>
-              <domain:authInfo>
-                <domain:pw>2fooBAR</domain:pw>
-              </domain:authInfo>
-            </domain:info>
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" />
           </info>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -265,9 +235,7 @@ describe EppXml::Domain do
         <command>
           <check>
             <domain:check
-             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-              <domain:name>example.ee</domain:name>
-            </domain:check>
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" />
           </check>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -449,6 +417,7 @@ describe EppXml::Domain do
     ').to_s.squish
 
     xml = EppXml::Domain.update({
+      name: { value: 'example.ee' },
       chg: [
         registrant: { value: 'mak21' }
       ]
@@ -501,7 +470,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = EppXml::Domain.update({}, {
+    xml = EppXml::Domain.update({ name: { value: 'example.ee' } }, {
       add: [
         { keyData: {
             flags: { value: '0' },
