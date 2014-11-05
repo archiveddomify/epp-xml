@@ -26,7 +26,31 @@ describe EppXml::Session do
     expect(generated).to eq(expected)
   end
 
-  context 'in context of Domain' do
+  it 'generates valid poll xml' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <poll op="req" />
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
 
+    generated = Nokogiri::XML(EppXml::Session.poll).to_s.squish
+    expect(generated).to eq(expected)
+
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <poll op="ack" msgID="12345" />
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = EppXml::Session.poll(poll: { value: '', attrs: { op: 'ack', msgID: '12345' } })
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
   end
 end

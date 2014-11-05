@@ -33,5 +33,24 @@ module EppXmlCore
         end
       end
     end
+
+    def poll(xml_params = {})
+      defaults = {
+        poll: { value: '', attrs: { op: 'req' } }
+      }
+
+      xml_params = defaults.deep_merge(xml_params)
+
+      xml = Builder::XmlMarkup.new
+
+      xml.instruct!(:xml, standalone: 'no')
+      xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
+        xml.command do
+          EppXml.generate_xml_from_hash(xml_params, xml)
+          xml.clTRID 'ABC-12345'
+        end
+      end
+
+    end
   end
 end
