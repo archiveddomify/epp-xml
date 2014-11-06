@@ -42,10 +42,10 @@ Results in:
   <command>
     <info>
       <domain:info xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-      <domain:name hosts="sub">one.ee</domain:name>
-      <domain:authInfo>
-        <domain:pw>b3rafsla</domain:pw>
-      </domain:authInfo>
+        <domain:name hosts="sub">one.ee</domain:name>
+        <domain:authInfo>
+          <domain:pw>b3rafsla</domain:pw>
+        </domain:authInfo>
       </domain:info>
     </info>
     <clTRID>ABC-12345</clTRID>
@@ -73,8 +73,7 @@ puts Nokogiri(xml)
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <command>
     <check>
-      <domain:check
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+      <domain:check xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>example.ee</domain:name>
         <domain:name>example2.ee</domain:name>
         <domain:name>example3.ee</domain:name>
@@ -122,8 +121,7 @@ puts Nokogiri(xml)
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <command>
     <create>
-      <contact:create
-       xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
+      <contact:create xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
         <contact:id>sh8013</contact:id>
         <contact:postalInfo type="int">
           <contact:name>John Doe</contact:name>
