@@ -3,6 +3,7 @@ require 'builder'
 require 'epp-xml/session'
 require 'epp-xml/domain'
 require 'epp-xml/contact'
+require 'epp-xml/keyrelay'
 
 module EppXml
   class Session
@@ -15,6 +16,10 @@ module EppXml
 
   class Contact
     extend ::EppXmlCore::Contact
+  end
+
+  class Keyrelay
+    extend ::EppXmlCore::Keyrelay
   end
 
   def self.generate_xml_from_hash(xml_params, xml, ns = '')
