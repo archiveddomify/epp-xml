@@ -10,27 +10,25 @@ module EppXmlCore
         'xmlns:domain' => 'urn:ietf:params:xml:ns:domain-1.0',
         'xmlns:ext' => 'urn:ietf:params:xml:ns:keyrelay-1.0'
       ) do
-        xml.extension do
-          xml.tag!('ext:command') do
-            xml.tag!('ext:keyrelay') do
+        xml.tag!('command') do
+          xml.tag!('ext:keyrelay') do
 
-              xml.tag!('ext:name', xml_params[:name][:value])
+            xml.tag!('ext:name', xml_params[:name][:value])
 
-              xml.tag!('ext:keyData') do
-                EppXml.generate_xml_from_hash(xml_params[:keyData], xml, 'secDNS:')
-              end
-
-              xml.tag!('ext:authInfo') do
-                EppXml.generate_xml_from_hash(xml_params[:authInfo], xml, 'domain:')
-              end
-
-              xml.tag!('ext:expiry') do
-                EppXml.generate_xml_from_hash(xml_params[:expiry], xml, 'ext:')
-              end if xml_params[:expiry]
-
+            xml.tag!('ext:keyData') do
+              EppXml.generate_xml_from_hash(xml_params[:keyData], xml, 'secDNS:')
             end
-            xml.tag!('ext:clTRID', 'ABC-12345')
+
+            xml.tag!('ext:authInfo') do
+              EppXml.generate_xml_from_hash(xml_params[:authInfo], xml, 'domain:')
+            end
+
+            xml.tag!('ext:expiry') do
+              EppXml.generate_xml_from_hash(xml_params[:expiry], xml, 'ext:')
+            end if xml_params[:expiry]
+
           end
+          xml.tag!('ext:clTRID', 'ABC-12345')
         end
       end
     end
