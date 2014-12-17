@@ -1,6 +1,8 @@
-module EppXml
+require 'client_transaction_id'
+
+class EppXml
   class Domain
-    include EppXml
+    include ClientTransactionId
 
     def info(xml_params = {})
       build('info', xml_params)

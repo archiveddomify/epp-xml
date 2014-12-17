@@ -1,6 +1,8 @@
-module EppXml
+require 'client_transaction_id'
+
+class EppXml
   class Contact
-    include EppXml
+    include ClientTransactionId
 
     def create(xml_params = {})
       build('create', xml_params)

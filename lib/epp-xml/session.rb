@@ -1,6 +1,8 @@
-module EppXml
+require 'client_transaction_id'
+
+class EppXml
   class Session
-    include EppXml
+    include ClientTransactionId
 
     def login(xml_params = {})
       defaults = {

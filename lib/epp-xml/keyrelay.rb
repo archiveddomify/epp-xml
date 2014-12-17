@@ -1,6 +1,8 @@
-module EppXml
+require 'client_transaction_id'
+
+class EppXml
   class Keyrelay
-    include EppXml
+    include ClientTransactionId
 
     def keyrelay(xml_params = {})
       xml = Builder::XmlMarkup.new

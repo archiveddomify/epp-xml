@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe EppXml::Domain do
-  let(:ex) { EppXml::Domain.new(cl_trid: 'ABC-12345')}
+  let(:epp_xml) { EppXml.new(cl_trid: 'ABC-12345')}
 
   it 'generates valid create xml' do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -19,7 +19,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(ex.create).to_s.squish
+    generated = Nokogiri::XML(epp_xml.domain.create).to_s.squish
     expect(generated).to eq(expected)
 
     ###
@@ -50,7 +50,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.create({
+    xml = epp_xml.domain.create({
       name: { value: 'one.ee' },
       period: { value: '345', attrs: { unit: 'd' } },
       ns: [
@@ -84,7 +84,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.create({
+    xml = epp_xml.domain.create({
       name: { value: 'one.ee' },
       period: nil,
       ns: nil,
@@ -142,7 +142,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.create({
+    xml = epp_xml.domain.create({
       name: { value: 'one.ee' },
       period: { value: '345', attrs: { unit: 'd' } },
       ns: [
@@ -200,7 +200,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(ex.info).to_s.squish
+    generated = Nokogiri::XML(epp_xml.domain.info).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -220,7 +220,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.info({
+    xml = epp_xml.domain.info({
       name: { value: 'one.ee', attrs: { hosts: 'sub' } },
       authInfo: {
         pw: { value: 'b3rafsla' }
@@ -244,7 +244,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(ex.check).to_s.squish
+    generated = Nokogiri::XML(epp_xml.domain.check).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -263,7 +263,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.check({
+    xml = epp_xml.domain.check({
       _anonymus: [
         { name: { value: 'example.ee' } },
         { name: { value: 'example2.ee' } },
@@ -310,7 +310,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.update({
+    xml = epp_xml.domain.update({
       name: { value: 'example.ee' },
       add: [
         { ns:
@@ -373,7 +373,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.update({
+    xml = epp_xml.domain.update({
       name: { value: 'one.ee' },
       add: [
         ns: nil,
@@ -418,7 +418,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.update({
+    xml = epp_xml.domain.update({
       name: { value: 'example.ee' },
       chg: [
         registrant: { value: 'mak21' }
@@ -472,7 +472,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.update({ name: { value: 'example.ee' } }, {
+    xml = epp_xml.domain.update({ name: { value: 'example.ee' } }, {
       add: [
         { keyData: {
             flags: { value: '0' },
@@ -523,7 +523,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(ex.delete).to_s.squish
+    generated = Nokogiri::XML(epp_xml.domain.delete).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -540,7 +540,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(ex.delete(name: { value: 'one.ee' })).to_s.squish
+    generated = Nokogiri::XML(epp_xml.domain.delete(name: { value: 'one.ee' })).to_s.squish
     expect(generated).to eq(expected)
   end
 
@@ -557,7 +557,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(ex.renew).to_s.squish
+    generated = Nokogiri::XML(epp_xml.domain.renew).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -576,7 +576,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.renew({
+    xml = epp_xml.domain.renew({
       name: { value: 'one.ee' },
       curExpDate: {value: '2009-11-15' },
       period: { value: '365', attrs: { unit: 'd' } }
@@ -599,7 +599,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(ex.transfer).to_s.squish
+    generated = Nokogiri::XML(epp_xml.domain.transfer).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -619,7 +619,7 @@ describe EppXml::Domain do
       </epp>
     ').to_s.squish
 
-    xml = ex.transfer({
+    xml = epp_xml.domain.transfer({
       name: { value: 'one.ee' },
       authInfo: {
         pw: { value: 'test', attrs: { roid: 'askdf' } }

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe EppXml::Keyrelay do
-  let(:ex) { EppXml::Keyrelay.new(cl_trid: 'ABC-12345')}
+  let(:epp_xml) { EppXml.new(cl_trid: 'ABC-12345')}
 
   it 'generates valid keyrelay xml' do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -30,7 +30,7 @@ describe EppXml::Keyrelay do
       </epp>
     ').to_s.squish
 
-    xml = ex.keyrelay({
+    xml = epp_xml.keyrelay.keyrelay({
       name: { value: 'example.org' },
       keyData: {
         flags: { value: '256' },
@@ -74,7 +74,7 @@ describe EppXml::Keyrelay do
       </epp>
     ').to_s.squish
 
-    xml = ex.keyrelay({
+    xml = epp_xml.keyrelay.keyrelay({
       name: { value: 'example.org' },
       keyData: {
         flags: { value: '256' },

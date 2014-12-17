@@ -4,19 +4,25 @@ require 'epp-xml/session'
 require 'epp-xml/domain'
 require 'epp-xml/contact'
 require 'epp-xml/keyrelay'
+require 'client_transaction_id'
 
-module EppXml
-  attr_accessor :cl_trid_prefix, :cl_trid
+class EppXml
+  include ClientTransactionId
 
-  def initialize(args = {})
-    self.cl_trid = args[:cl_trid]
-    self.cl_trid_prefix = args[:cl_trid_prefix]
+  def domain
+    @cached_domain ||= EppXml::Domain.new(cl_trid: cl_trid, cl_trid_prefix: cl_trid_prefix)
   end
 
-  def clTRID
-    return cl_trid if cl_trid
-    return "#{cl_trid_prefix}-#{Time.now.to_i}" if cl_trid_prefix
-    Time.now.to_i
+  def contact
+    @cached_contact ||= EppXml::Contact.new(cl_trid: cl_trid, cl_trid_prefix: cl_trid_prefix)
+  end
+
+  def session
+    @cached_session ||= EppXml::Session.new(cl_trid: cl_trid, cl_trid_prefix: cl_trid_prefix)
+  end
+
+  def keyrelay
+    @cached_keyrelay ||= EppXml::Keyrelay.new(cl_trid: cl_trid, cl_trid_prefix: cl_trid_prefix)
   end
 
   class << self
