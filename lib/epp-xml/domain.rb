@@ -32,7 +32,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(dnssec_params, xml, 'secDNS:')
             end
           end if dnssec_params != false
-          xml.clTRID 'ABC-12345'
+          xml.clTRID("#{EppXml.cl_trid_prefix}#{Time.now.to_i}")
         end
       end
     end
@@ -54,7 +54,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(dnssec_params, xml, 'secDNS:')
             end
           end if dnssec_params != false
-          xml.clTRID 'ABC-12345'
+          xml.clTRID("#{EppXml.cl_trid_prefix}#{Time.now.to_i}")
         end
       end
     end
@@ -70,7 +70,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end
-          xml.clTRID 'ABC-12345'
+          xml.clTRID("#{EppXml.cl_trid_prefix}#{Time.now.to_i}")
         end
       end
     end
@@ -88,7 +88,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end
-          xml.clTRID 'ABC-12345'
+          xml.clTRID("#{EppXml.cl_trid_prefix}#{Time.now.to_i}")
         end
       end
     end

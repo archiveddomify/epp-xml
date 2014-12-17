@@ -31,7 +31,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
             end
           end
-          xml.clTRID 'ABC-12345'
+          xml.clTRID("#{EppXml.cl_trid_prefix}#{Time.now.to_i}")
         end
       end
     end
@@ -49,7 +49,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
             end
           end
-          xml.clTRID 'ABC-12345'
+          xml.clTRID("#{EppXml.cl_trid_prefix}#{Time.now.to_i}")
         end
       end
     end
