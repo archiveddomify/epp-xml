@@ -28,7 +28,7 @@ module EppXmlCore
             end if xml_params[:expiry]
 
           end
-          xml.tag!('ext:clTRID', "#{EppXml.cl_trid_prefix}#{Time.now.to_i}")
+          xml.tag!('ext:clTRID', EppXml.clTRID)
         end
       end
     end

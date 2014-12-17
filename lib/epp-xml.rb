@@ -23,7 +23,11 @@ module EppXml
   end
 
   class << self
-    attr_accessor :cl_trid_prefix
+    attr_accessor :cl_trid_prefix, :cl_trid
+
+    def clTRID
+      cl_trid || "#{cl_trid_prefix}-#{Time.now.to_i}"
+    end
 
     def generate_xml_from_hash(xml_params, xml, ns = '')
       xml_params.each do |k, v|

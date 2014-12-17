@@ -29,7 +29,7 @@ module EppXmlCore
           xml.login do
             EppXml.generate_xml_from_hash(xml_params, xml)
           end
-          xml.clTRID("#{EppXml.cl_trid_prefix}#{Time.now.to_i}")
+          xml.clTRID(EppXml.clTRID)
         end
       end
     end
@@ -47,7 +47,7 @@ module EppXmlCore
       xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
         xml.command do
           EppXml.generate_xml_from_hash(xml_params, xml)
-          xml.clTRID("#{EppXml.cl_trid_prefix}#{Time.now.to_i}")
+          xml.clTRID(EppXml.clTRID)
         end
       end
 
