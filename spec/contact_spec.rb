@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe EppXml::Contact do
-  before(:each) { EppXml.cl_trid = 'ABC-12345' }
+  let(:ex) { EppXml::Contact.new(cl_trid: 'ABC-12345')}
 
   it 'generates valid check xml' do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -16,7 +16,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(EppXml::Contact.check).to_s.squish
+    generated = Nokogiri::XML(ex.check).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -35,7 +35,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    xml = EppXml::Contact.check({
+    xml = ex.check({
       _anonymus: [
         { id: { value: 'sh8013' } },
         { id: { value: 'sah8013' } },
@@ -60,7 +60,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(EppXml::Contact.info).to_s.squish
+    generated = Nokogiri::XML(ex.info).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -80,7 +80,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    xml = EppXml::Contact.info({
+    xml = ex.info({
       id: { value: 'sh8013' },
       authInfo: {
         pw: { value: '2fooBAR' }
@@ -104,7 +104,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(EppXml::Contact.transfer).to_s.squish
+    generated = Nokogiri::XML(ex.transfer).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -124,7 +124,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    xml = EppXml::Contact.transfer({
+    xml = ex.transfer({
       id: { value: 'sh8013' },
       authInfo: {
         pw: { value: '2fooBAR' }
@@ -148,7 +148,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(EppXml::Contact.create).to_s.squish
+    generated = Nokogiri::XML(ex.create).to_s.squish
     expect(generated).to eq(expected)
 
     ###
@@ -189,7 +189,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    xml = EppXml::Contact.create({
+    xml = ex.create({
       id: { value: 'sh8013' },
       postalInfo: { value: {
         name: { value: 'John Doe' },
@@ -232,7 +232,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(EppXml::Contact.delete).to_s.squish
+    generated = Nokogiri::XML(ex.delete).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -249,7 +249,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    xml = EppXml::Contact.delete({
+    xml = ex.delete({
       id: { value: 'sh8013' }
     })
 
@@ -270,7 +270,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(EppXml::Contact.update).to_s.squish
+    generated = Nokogiri::XML(ex.update).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -312,7 +312,7 @@ describe EppXml::Contact do
       </epp>
     ').to_s.squish
 
-    xml = EppXml::Contact.update({
+    xml = ex.update({
       id: { value: 'sh8013' },
       add: [
         { status: { value: '', attrs: { s: 'clientDeleteProhibited' } } }

@@ -1,5 +1,7 @@
-module EppXmlCore
-  module Keyrelay
+module EppXml
+  class Keyrelay
+    include EppXml
+
     def keyrelay(xml_params = {})
       xml = Builder::XmlMarkup.new
 
@@ -28,7 +30,7 @@ module EppXmlCore
             end if xml_params[:expiry]
 
           end
-          xml.tag!('ext:clTRID', EppXml.clTRID)
+          xml.tag!('ext:clTRID', clTRID)
         end
       end
     end

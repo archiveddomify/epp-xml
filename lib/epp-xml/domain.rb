@@ -1,5 +1,7 @@
-module EppXmlCore
-  module Domain
+module EppXml
+  class Domain
+    include EppXml
+
     def info(xml_params = {})
       build('info', xml_params)
     end
@@ -32,7 +34,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(dnssec_params, xml, 'secDNS:')
             end
           end if dnssec_params != false
-          xml.clTRID(EppXml.clTRID)
+          xml.clTRID(clTRID)
         end
       end
     end
@@ -54,7 +56,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(dnssec_params, xml, 'secDNS:')
             end
           end if dnssec_params != false
-          xml.clTRID(EppXml.clTRID)
+          xml.clTRID(clTRID)
         end
       end
     end
@@ -70,7 +72,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end
-          xml.clTRID(EppXml.clTRID)
+          xml.clTRID(clTRID)
         end
       end
     end
@@ -88,7 +90,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end
-          xml.clTRID(EppXml.clTRID)
+          xml.clTRID(clTRID)
         end
       end
     end

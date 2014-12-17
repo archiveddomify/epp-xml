@@ -6,29 +6,20 @@ require 'epp-xml/contact'
 require 'epp-xml/keyrelay'
 
 module EppXml
-  class Session
-    extend ::EppXmlCore::Session
+  attr_accessor :cl_trid_prefix, :cl_trid
+
+  def initialize(args = {})
+    self.cl_trid = args[:cl_trid]
+    self.cl_trid_prefix = args[:cl_trid_prefix]
   end
 
-  class Domain
-    extend ::EppXmlCore::Domain
-  end
-
-  class Contact
-    extend ::EppXmlCore::Contact
-  end
-
-  class Keyrelay
-    extend ::EppXmlCore::Keyrelay
+  def clTRID
+    return cl_trid if cl_trid
+    return "#{cl_trid_prefix}-#{Time.now.to_i}" if cl_trid_prefix
+    Time.now.to_i
   end
 
   class << self
-    attr_accessor :cl_trid_prefix, :cl_trid
-
-    def clTRID
-      cl_trid || "#{cl_trid_prefix}-#{Time.now.to_i}"
-    end
-
     def generate_xml_from_hash(xml_params, xml, ns = '')
       xml_params.each do |k, v|
         # Value is a hash which has string type value

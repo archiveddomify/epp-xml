@@ -1,5 +1,7 @@
-module EppXmlCore
-  module Contact
+module EppXml
+  class Contact
+    include EppXml
+
     def create(xml_params = {})
       build('create', xml_params)
     end
@@ -31,7 +33,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
             end
           end
-          xml.clTRID(EppXml.clTRID)
+          xml.clTRID(clTRID)
         end
       end
     end
@@ -49,7 +51,7 @@ module EppXmlCore
               EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
             end
           end
-          xml.clTRID(EppXml.clTRID)
+          xml.clTRID(clTRID)
         end
       end
     end

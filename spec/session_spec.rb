@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe EppXml::Session do
+  let(:ex) { EppXml::Session.new(cl_trid: 'ABC-12345')}
+
   it 'generates valid login xml' do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '\
@@ -22,7 +24,7 @@ describe EppXml::Session do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(EppXml::Session.login).to_s.squish
+    generated = Nokogiri::XML(ex.login).to_s.squish
     expect(generated).to eq(expected)
   end
 
@@ -36,7 +38,7 @@ describe EppXml::Session do
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(EppXml::Session.poll).to_s.squish
+    generated = Nokogiri::XML(ex.poll).to_s.squish
     expect(generated).to eq(expected)
 
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -48,7 +50,7 @@ describe EppXml::Session do
       </epp>
     ').to_s.squish
 
-    xml = EppXml::Session.poll(poll: { value: '', attrs: { op: 'ack', msgID: '12345' } })
+    xml = ex.poll(poll: { value: '', attrs: { op: 'ack', msgID: '12345' } })
 
     generated = Nokogiri::XML(xml).to_s.squish
     expect(generated).to eq(expected)

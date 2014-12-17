@@ -1,5 +1,7 @@
-module EppXmlCore
-  module Session
+module EppXml
+  class Session
+    include EppXml
+
     def login(xml_params = {})
       defaults = {
         clID: { value: 'user' },
@@ -29,7 +31,7 @@ module EppXmlCore
           xml.login do
             EppXml.generate_xml_from_hash(xml_params, xml)
           end
-          xml.clTRID(EppXml.clTRID)
+          xml.clTRID(clTRID)
         end
       end
     end
@@ -47,7 +49,7 @@ module EppXmlCore
       xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
         xml.command do
           EppXml.generate_xml_from_hash(xml_params, xml)
-          xml.clTRID(EppXml.clTRID)
+          xml.clTRID(clTRID)
         end
       end
 
