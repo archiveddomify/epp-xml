@@ -24,7 +24,8 @@ The element consists of its name (key in hash), `value` and 0..n `attrs`.
 Note that you can nest elements in one another (`authInfo`):
 
 ```ruby
-xml = EppXml::Domain.info({
+epp_xml = EppXml::Domain.new(cl_trid_prefix: 'ABC')
+xml = epp_xml.info({
   name: { value: 'one.ee', attrs: { hosts: 'sub' } },
   authInfo: {
     pw: { value: 'b3rafsla' }
@@ -57,7 +58,8 @@ When you have multiple elements with same name, you have to wrap these elements 
 Note the `_anonymus` key. Any key that starts with and underscore will not be turned into element itself:
 
 ```ruby
-xml = EppXml::Domain.check({
+epp_xml = EppXml::Domain.new(cl_trid_prefix: 'ABC')
+xml = epp_xml.check({
   _anonymus: [
     { name: { value: 'example.ee' } },
     { name: { value: 'example2.ee' } },
@@ -87,7 +89,8 @@ puts Nokogiri(xml)
 If you still need to create the element and provide it with an attibute as well, then you can do something like this (note `postalInfo` and `disclose`)
 
 ```ruby
-xml = EppXml::Contact.create({
+epp_xml = EppXml::Contact.new(cl_trid_prefix: 'ABC')
+xml = epp_xml.create({
   id: { value: 'sh8013' },
   postalInfo: { value: {
     name: { value: 'John Doe' },
