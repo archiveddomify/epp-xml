@@ -4,23 +4,23 @@ class EppXml
   class Domain
     include ClientTransactionId
 
-    def info(xml_params = {})
-      build('info', xml_params)
+    def info(xml_params = {}, custom_params = {})
+      build('info', xml_params, custom_params)
     end
 
-    def check(xml_params = {})
-      build('check', xml_params)
+    def check(xml_params = {}, custom_params = {})
+      build('check', xml_params, custom_params)
     end
 
-    def delete(xml_params = {})
-      build('delete', xml_params)
+    def delete(xml_params = {}, custom_params = {})
+      build('delete', xml_params, custom_params)
     end
 
-    def renew(xml_params = {})
-      build('renew', xml_params)
+    def renew(xml_params = {}, custom_params = {})
+      build('renew', xml_params, custom_params)
     end
 
-    def create(xml_params = {}, dnssec_params = {})
+    def create(xml_params = {}, dnssec_params = {}, custom_params = {})
       xml = Builder::XmlMarkup.new
 
       xml.instruct!(:xml, standalone: 'no')
@@ -31,17 +31,24 @@ class EppXml
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end
+
           xml.extension do
             xml.tag!('secDNS:create', 'xmlns:secDNS' => 'urn:ietf:params:xml:ns:secDNS-1.1') do
               EppXml.generate_xml_from_hash(dnssec_params, xml, 'secDNS:')
-            end
-          end if dnssec_params != false
+            end if dnssec_params.any?
+
+            xml.tag!('eis:extdata',
+              'xmlns:eis' => 'urn:ee:eis:xml:epp:eis-1.0') do
+              EppXml.generate_xml_from_hash(custom_params, xml, 'eis:')
+            end if custom_params.any?
+          end if dnssec_params.any? || custom_params.any?
+
           xml.clTRID(clTRID)
         end
       end
     end
 
-    def update(xml_params = {}, dnssec_params = false)
+    def update(xml_params = {}, dnssec_params = {}, custom_params = {})
       xml = Builder::XmlMarkup.new
 
       xml.instruct!(:xml, standalone: 'no')
@@ -57,13 +64,19 @@ class EppXml
             xml.tag!('secDNS:create', 'xmlns:secDNS' => 'urn:ietf:params:xml:ns:secDNS-1.1') do
               EppXml.generate_xml_from_hash(dnssec_params, xml, 'secDNS:')
             end
-          end if dnssec_params != false
+
+            xml.tag!('eis:extdata',
+              'xmlns:eis' => 'urn:ee:eis:xml:epp:eis-1.0') do
+              EppXml.generate_xml_from_hash(custom_params, xml, 'eis:')
+            end if custom_params.any?
+          end if dnssec_params.any? || custom_params.any?
+
           xml.clTRID(clTRID)
         end
       end
     end
 
-    def transfer(xml_params = {}, op = 'query')
+    def transfer(xml_params = {}, op = 'query', custom_params = {})
       xml = Builder::XmlMarkup.new
 
       xml.instruct!(:xml, standalone: 'no')
@@ -74,6 +87,8 @@ class EppXml
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end
+
+          custom_ext(xml, custom_params)
           xml.clTRID(clTRID)
         end
       end
@@ -81,7 +96,7 @@ class EppXml
 
     private
 
-    def build(command, xml_params)
+    def build(command, xml_params, custom_params)
       xml = Builder::XmlMarkup.new
 
       xml.instruct!(:xml, standalone: 'no')
@@ -92,9 +107,21 @@ class EppXml
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end
+
+          custom_ext(xml, custom_params)
           xml.clTRID(clTRID)
         end
       end
     end
+
+    def custom_ext(xml, custom_params)
+      xml.extension do
+        xml.tag!('eis:extdata',
+          'xmlns:eis' => 'urn:ee:eis:xml:epp:eis-1.0') do
+          EppXml.generate_xml_from_hash(custom_params, xml, 'eis:')
+        end if custom_params.any?
+      end if custom_params.any?
+    end
+
   end
 end

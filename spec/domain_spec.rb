@@ -11,9 +11,6 @@ describe EppXml::Domain do
             <domain:create
              xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" />
           </create>
-          <extension>
-            <secDNS:create xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1" />
-          </extension>
           <clTRID>ABC-12345</clTRID>
         </command>
       </epp>
@@ -42,9 +39,6 @@ describe EppXml::Domain do
               <domain:contact type="tech">345xxv</domain:contact>
             </domain:create>
           </create>
-          <extension>
-            <secDNS:create xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1" />
-          </extension>
           <clTRID>ABC-12345</clTRID>
         </command>
       </epp>
@@ -90,7 +84,7 @@ describe EppXml::Domain do
       ns: nil,
       registrant: nil,
       _anonymus: nil
-    }, false)
+    })
 
     generated = Nokogiri::XML(xml).to_s.squish
     expect(generated).to eq(expected)
@@ -187,6 +181,74 @@ describe EppXml::Domain do
     expect(generated).to eq(expected)
   end
 
+  it 'generates create with custom extension' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <create>
+            <domain:create
+             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+              <domain:name>one.ee</domain:name>
+              <domain:period unit="d">345</domain:period>
+              <domain:ns>
+                <domain:hostAttr>
+                  <domain:hostName>ns1.example.net</domain:hostName>
+                  <domain:hostAddr ip="v4">192.0.2.2</domain:hostAddr>
+                  <domain:hostAddr ip="v6">1080:0:0:0:8:800:200C:417A</domain:hostAddr>
+                </domain:hostAttr>
+                <domain:hostAttr>
+                 <domain:hostName>ns2.example.net</domain:hostName>
+                </domain:hostAttr>
+              </domain:ns>
+              <domain:registrant>32fsdaf</domain:registrant>
+              <domain:contact type="admin">2323rafaf</domain:contact>
+              <domain:contact type="tech">3dgxx</domain:contact>
+              <domain:contact type="tech">345xxv</domain:contact>
+            </domain:create>
+          </create>
+          <extension>
+            <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+              <eis:legalDocument type="ddoc">base64</eis:legalDocument>
+            </eis:extdata>
+          </extension>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    xml = epp_xml.domain.create({
+      name: { value: 'one.ee' },
+      period: { value: '345', attrs: { unit: 'd' } },
+      ns: [
+        { hostAttr:
+          [
+            { hostName: { value: 'ns1.example.net' } },
+            { hostAddr: { value: '192.0.2.2', attrs: { ip: 'v4' } } },
+            { hostAddr: { value: '1080:0:0:0:8:800:200C:417A', attrs: { ip: 'v6' } } }
+          ]
+        },
+        { hostAttr:
+          [
+            { hostName: { value: 'ns2.example.net' } }
+          ]
+        }
+      ],
+      registrant: { value: '32fsdaf' },
+      _anonymus: [
+        { contact: { value: '2323rafaf', attrs: { type: 'admin' } } },
+        { contact: { value: '3dgxx', attrs: { type: 'tech' } } },
+        { contact: { value: '345xxv', attrs: { type: 'tech' } } }
+      ]
+    }, {}, {
+      _anonymus: [
+        legalDocument: { value: 'base64', attrs: { type: 'ddoc' } }
+      ]
+    })
+
+    generated = Nokogiri::XML(xml).to_s.squish
+    expect(generated).to eq(expected)
+  end
+
   it 'generates valid info xml' do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -197,6 +259,7 @@ describe EppXml::Domain do
           </info>
           <clTRID>ABC-12345</clTRID>
         </command>
+
       </epp>
     ').to_s.squish
 
@@ -466,6 +529,9 @@ describe EppXml::Domain do
                 </secDNS:dsData>
               </secDNS:add>
             </secDNS:create>
+            <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+              <eis:legalDocument type="ddoc">base64</eis:legalDocument>
+            </eis:extdata>
           </extension>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -503,6 +569,10 @@ describe EppXml::Domain do
           }
         }
       ]
+    }, {
+      _anonymus: [
+        legalDocument: { value: 'base64', attrs: { type: 'ddoc' } }
+      ]
     })
 
     generated = Nokogiri::XML(xml).to_s.squish
@@ -535,12 +605,26 @@ describe EppXml::Domain do
               <domain:name>one.ee</domain:name>
             </domain:delete>
           </delete>
+
+          <extension>
+            <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+              <eis:legalDocument type="ddoc">base64</eis:legalDocument>
+            </eis:extdata>
+          </extension>
           <clTRID>ABC-12345</clTRID>
         </command>
       </epp>
     ').to_s.squish
 
-    generated = Nokogiri::XML(epp_xml.domain.delete(name: { value: 'one.ee' })).to_s.squish
+    xml = epp_xml.domain.delete({
+      name: { value: 'one.ee' }
+    }, {
+      _anonymus: [
+        legalDocument: { value: 'base64', attrs: { type: 'ddoc' } }
+      ]
+    })
+
+    generated = Nokogiri::XML(xml).to_s.squish
     expect(generated).to eq(expected)
   end
 
