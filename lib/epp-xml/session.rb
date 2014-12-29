@@ -38,7 +38,7 @@ class EppXml
       end
     end
 
-    def poll(xml_params = {})
+    def poll(xml_params = {}, custom_params = {})
       defaults = {
         poll: { value: '', attrs: { op: 'req' } }
       }
@@ -51,6 +51,8 @@ class EppXml
       xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
         xml.command do
           EppXml.generate_xml_from_hash(xml_params, xml)
+
+          EppXml.custom_ext(xml, custom_params)
           xml.clTRID(clTRID)
         end
       end

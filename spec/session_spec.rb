@@ -45,12 +45,26 @@ describe EppXml::Session do
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
         <command>
           <poll op="ack" msgID="12345" />
+
+          <extension>
+            <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+              <eis:legalDocument type="ddoc">base64</eis:legalDocument>
+            </eis:extdata>
+          </extension>
           <clTRID>ABC-12345</clTRID>
         </command>
       </epp>
     ').to_s.squish
 
-    xml = epp_xml.session.poll(poll: { value: '', attrs: { op: 'ack', msgID: '12345' } })
+    xml = epp_xml.session.poll({
+      poll: {
+        value: '', attrs: { op: 'ack', msgID: '12345' }
+      }
+    }, {
+      _anonymus: [
+        legalDocument: { value: 'base64', attrs: { type: 'ddoc' } }
+      ]
+    })
 
     generated = Nokogiri::XML(xml).to_s.squish
     expect(generated).to eq(expected)

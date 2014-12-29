@@ -25,6 +25,9 @@ describe EppXml::Keyrelay do
                <ext:relative>P1M13D</ext:relative>
             </ext:expiry>
           </ext:keyrelay>
+          <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+            <eis:legalDocument type="ddoc">base64</eis:legalDocument>
+          </eis:extdata>
           <ext:clTRID>ABC-12345</ext:clTRID>
         </command>
       </epp>
@@ -44,6 +47,10 @@ describe EppXml::Keyrelay do
       expiry: {
         relative: { value: 'P1M13D' }
       }
+    }, {
+      _anonymus: [
+        legalDocument: { value: 'base64', attrs: { type: 'ddoc' } }
+      ]
     })
 
     generated = Nokogiri::XML(xml).to_s.squish

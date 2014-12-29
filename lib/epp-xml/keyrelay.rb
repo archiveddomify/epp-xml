@@ -4,7 +4,7 @@ class EppXml
   class Keyrelay
     include ClientTransactionId
 
-    def keyrelay(xml_params = {})
+    def keyrelay(xml_params = {}, custom_params = {})
       xml = Builder::XmlMarkup.new
 
       xml.instruct!(:xml, standalone: 'no')
@@ -32,6 +32,12 @@ class EppXml
             end if xml_params[:expiry]
 
           end
+
+          xml.tag!('eis:extdata',
+            'xmlns:eis' => 'urn:ee:eis:xml:epp:eis-1.0') do
+            EppXml.generate_xml_from_hash(custom_params, xml, 'eis:')
+          end if custom_params.any?
+
           xml.tag!('ext:clTRID', clTRID)
         end
       end

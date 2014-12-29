@@ -30,6 +30,12 @@ describe EppXml::Contact do
               <contact:id>8013sah</contact:id>
             </contact:check>
           </check>
+
+          <extension>
+            <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+              <eis:legalDocument type="ddoc">base64</eis:legalDocument>
+            </eis:extdata>
+          </extension>
           <clTRID>ABC-12345</clTRID>
         </command>
       </epp>
@@ -40,6 +46,10 @@ describe EppXml::Contact do
         { id: { value: 'sh8013' } },
         { id: { value: 'sah8013' } },
         { id: { value: '8013sah' } }
+      ]
+    }, {
+      _anonymus: [
+        legalDocument: { value: 'base64', attrs: { type: 'ddoc' } }
       ]
     })
 
@@ -119,6 +129,12 @@ describe EppXml::Contact do
               </contact:authInfo>
             </contact:transfer>
           </transfer>
+
+          <extension>
+            <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+              <eis:legalDocument type="ddoc">base64</eis:legalDocument>
+            </eis:extdata>
+          </extension>
           <clTRID>ABC-12345</clTRID>
         </command>
       </epp>
@@ -129,7 +145,11 @@ describe EppXml::Contact do
       authInfo: {
         pw: { value: '2fooBAR' }
       }
-    }, 'query')
+    }, 'query', {
+      _anonymus: [
+        legalDocument: { value: 'base64', attrs: { type: 'ddoc' } }
+      ]
+    })
 
     generated = Nokogiri::XML(xml).to_s.squish
     expect(generated).to eq(expected)
