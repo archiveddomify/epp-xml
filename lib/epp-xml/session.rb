@@ -14,7 +14,14 @@ class EppXml
         },
         svcs: {
           _objURIs: [
-            objURI: { value: 'urn:ietf:params:xml:ns:contact-1.0' }
+            { objURI: { value: 'urn:ietf:params:xml:ns:domain-1.0' } },
+            { objURI: { value: 'urn:ietf:params:xml:ns:contact-1.0' } },
+            { objURI: { value: 'urn:ietf:params:xml:ns:host-1.0' } },
+            { objURI: { value: 'urn:ietf:params:xml:ns:keyrelay-1.0' } }
+          ],
+          svcExtension: [
+            { extURI: { value: 'urn:ietf:params:xml:ns:secDNS-1.1' } },
+            { extURI: { value: 'urn:ee:eis:xml:epp:eis-1.0' } }
           ]
         }
       }
