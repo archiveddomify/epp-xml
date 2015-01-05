@@ -32,14 +32,25 @@ class EppXml
 
       xml.instruct!(:xml, standalone: 'no')
       xml.epp(
-        'xmlns' => 'urn:ietf:params:xml:ns:epp-1.0',
-        'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
-        'xsi:schemaLocation' => 'urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd'
+        'xmlns' => 'urn:ietf:params:xml:ns:epp-1.0'
       ) do
         xml.command do
           xml.login do
             EppXml.generate_xml_from_hash(xml_params, xml)
           end
+          xml.clTRID(clTRID)
+        end
+      end
+    end
+
+    def logout
+      xml = Builder::XmlMarkup.new
+      xml.instruct!(:xml, standalone: 'no')
+      xml.epp(
+        'xmlns' => 'urn:ietf:params:xml:ns:epp-1.0'
+      ) do
+        xml.command do
+          xml.logout
           xml.clTRID(clTRID)
         end
       end
