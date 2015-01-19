@@ -501,7 +501,7 @@ describe EppXml::Domain do
             </domain:update>
           </update>
           <extension>
-            <secDNS:create xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
+            <secDNS:update xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1">
               <secDNS:add>
                 <secDNS:keyData>
                   <secDNS:flags>0</secDNS:flags>
@@ -528,7 +528,7 @@ describe EppXml::Domain do
                   </secDNS:keyData>
                 </secDNS:dsData>
               </secDNS:add>
-            </secDNS:create>
+            </secDNS:update>
             <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
               <eis:legalDocument type="ddoc">base64</eis:legalDocument>
             </eis:extdata>

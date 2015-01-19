@@ -61,7 +61,7 @@ class EppXml
           end
 
           xml.extension do
-            xml.tag!('secDNS:create', 'xmlns:secDNS' => 'urn:ietf:params:xml:ns:secDNS-1.1') do
+            xml.tag!('secDNS:update', 'xmlns:secDNS' => 'urn:ietf:params:xml:ns:secDNS-1.1') do
               EppXml.generate_xml_from_hash(dnssec_params, xml, 'secDNS:')
             end
 
