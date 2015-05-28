@@ -57,6 +57,23 @@ describe EppXml::Contact do
     expect(generated).to eq(expected)
   end
 
+  it 'generates valid check xml without clTRID' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <check>
+            <contact:check
+             xmlns:contact="urn:ietf:params:xml:ns:contact-1.0" />
+          </check>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    ex = EppXml.new(cl_trid: false)
+    generated = Nokogiri::XML(ex.contact.check).to_s.squish
+    expect(generated).to eq(expected)
+  end
+
   it 'generates valid info xml' do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">

@@ -7,6 +7,7 @@ module ClientTransactionId
   end
 
   def clTRID
+    return nil if cl_trid == false
     return cl_trid if cl_trid
     return "#{cl_trid_prefix}-#{Time.now.to_i}" if cl_trid_prefix
     Time.now.to_i

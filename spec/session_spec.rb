@@ -48,6 +48,20 @@ describe EppXml::Session do
     expect(generated).to eq(expected)
   end
 
+  it 'generates valid logout xml without clTRID' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <logout/>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    ex = EppXml.new(cl_trid: false)
+    generated = Nokogiri::XML(ex.session.logout).to_s.squish
+    expect(generated).to eq(expected)
+  end
+
   it 'generates valid poll xml' do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">

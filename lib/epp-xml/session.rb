@@ -38,7 +38,7 @@ class EppXml
           xml.login do
             EppXml.generate_xml_from_hash(xml_params, xml)
           end
-          xml.clTRID(clTRID)
+          xml.clTRID(clTRID) if clTRID
         end
       end
     end
@@ -51,7 +51,7 @@ class EppXml
       ) do
         xml.command do
           xml.logout
-          xml.clTRID(clTRID)
+          xml.clTRID(clTRID) if clTRID
         end
       end
     end
@@ -71,10 +71,9 @@ class EppXml
           EppXml.generate_xml_from_hash(xml_params, xml)
 
           EppXml.custom_ext(xml, custom_params)
-          xml.clTRID(clTRID)
+          xml.clTRID(clTRID) if clTRID
         end
       end
-
     end
   end
 end

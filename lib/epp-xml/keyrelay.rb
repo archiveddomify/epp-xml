@@ -38,10 +38,9 @@ class EppXml
             EppXml.generate_xml_from_hash(custom_params, xml, 'eis:')
           end if custom_params.any?
 
-          xml.tag!('ext:clTRID', clTRID)
+          xml.tag!('ext:clTRID', clTRID) if clTRID
         end
       end
     end
-
   end
 end

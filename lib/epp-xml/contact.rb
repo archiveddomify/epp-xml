@@ -37,7 +37,7 @@ class EppXml
           end
 
           EppXml.custom_ext(xml, custom_params)
-          xml.clTRID(clTRID)
+          xml.clTRID(clTRID) if clTRID
         end
       end
     end
@@ -57,7 +57,7 @@ class EppXml
           end
 
           EppXml.custom_ext(xml, custom_params)
-          xml.clTRID(clTRID)
+          xml.clTRID(clTRID) if clTRID
         end
       end
     end
