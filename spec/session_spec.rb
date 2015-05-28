@@ -34,6 +34,38 @@ describe EppXml::Session do
     expect(generated).to eq(expected)
   end
 
+  it 'generates valid login xml with new pw' do
+    expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+        <command>
+          <login>
+            <clID>user</clID>
+            <pw>pw</pw>
+            <newPW>new_pw</newPW>
+            <options>
+              <version>1.0</version>
+              <lang>en</lang>
+            </options>
+            <svcs>
+              <objURI>urn:ietf:params:xml:ns:domain-1.0</objURI>
+              <objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
+              <objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
+              <objURI>urn:ietf:params:xml:ns:keyrelay-1.0</objURI>
+              <svcExtension>
+                <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
+                <extURI>urn:ee:eis:xml:epp:eis-1.0</extURI>
+              </svcExtension>
+            </svcs>
+          </login>
+          <clTRID>ABC-12345</clTRID>
+        </command>
+      </epp>
+    ').to_s.squish
+
+    generated = Nokogiri::XML(epp_xml.session.login(newPW: { value: 'new_pw' })).to_s.squish
+    expect(generated).to eq(expected)
+  end
+
   it 'generates valid logout xml' do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">

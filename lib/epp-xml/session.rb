@@ -8,6 +8,7 @@ class EppXml
       defaults = {
         clID: { value: 'user' },
         pw: { value: 'pw' },
+        newPW: nil,
         options: {
           version: { value: '1.0' },
           lang: { value: 'en' }
