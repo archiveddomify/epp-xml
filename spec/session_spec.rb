@@ -21,7 +21,7 @@ describe EppXml::Session do
               <objURI>urn:ietf:params:xml:ns:keyrelay-1.0</objURI>
               <svcExtension>
                 <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-                <extURI>urn:ee:eis:xml:epp:eis-1.0</extURI>
+                <extURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd</extURI>
               </svcExtension>
             </svcs>
           </login>
@@ -53,7 +53,7 @@ describe EppXml::Session do
               <objURI>urn:ietf:params:xml:ns:keyrelay-1.0</objURI>
               <svcExtension>
                 <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-                <extURI>urn:ee:eis:xml:epp:eis-1.0</extURI>
+                <extURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd</extURI>
               </svcExtension>
             </svcs>
           </login>
@@ -113,7 +113,7 @@ describe EppXml::Session do
           <poll op="ack" msgID="12345" />
 
           <extension>
-            <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+            <eis:extdata xmlns:eis="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd">
               <eis:legalDocument type="ddoc">base64</eis:legalDocument>
             </eis:extdata>
           </extension>

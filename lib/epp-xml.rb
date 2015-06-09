@@ -58,7 +58,7 @@ class EppXml
     def custom_ext(xml, custom_params)
       xml.extension do
         xml.tag!('eis:extdata',
-          'xmlns:eis' => 'urn:ee:eis:xml:epp:eis-1.0') do
+          'xmlns:eis' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd') do
           EppXml.generate_xml_from_hash(custom_params, xml, 'eis:')
         end if custom_params.any?
       end if custom_params.any?

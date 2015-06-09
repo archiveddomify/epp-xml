@@ -207,7 +207,7 @@ describe EppXml::Domain do
             </domain:create>
           </create>
           <extension>
-            <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+            <eis:extdata xmlns:eis="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd">
               <eis:legalDocument type="ddoc">base64</eis:legalDocument>
             </eis:extdata>
           </extension>
@@ -529,7 +529,7 @@ describe EppXml::Domain do
                 </secDNS:dsData>
               </secDNS:add>
             </secDNS:update>
-            <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+            <eis:extdata xmlns:eis="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd">
               <eis:legalDocument type="ddoc">base64</eis:legalDocument>
             </eis:extdata>
           </extension>
@@ -607,7 +607,7 @@ describe EppXml::Domain do
           </delete>
 
           <extension>
-            <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+            <eis:extdata xmlns:eis="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd">
               <eis:legalDocument type="ddoc">base64</eis:legalDocument>
             </eis:extdata>
           </extension>

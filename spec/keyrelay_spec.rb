@@ -25,7 +25,7 @@ describe EppXml::Keyrelay do
                <ext:relative>P1M13D</ext:relative>
             </ext:expiry>
           </ext:keyrelay>
-          <eis:extdata xmlns:eis="urn:ee:eis:xml:epp:eis-1.0">
+          <eis:extdata xmlns:eis="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd">
             <eis:legalDocument type="ddoc">base64</eis:legalDocument>
           </eis:extdata>
           <ext:clTRID>ABC-12345</ext:clTRID>
