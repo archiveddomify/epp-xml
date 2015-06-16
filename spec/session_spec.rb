@@ -15,8 +15,8 @@ describe EppXml::Session do
               <lang>en</lang>
             </options>
             <svcs>
-              <objURI>urn:ietf:params:xml:ns:domain-1.0</objURI>
-              <objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
+              <objURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd</objURI>
+              <objURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/contact-eis-1.0.xsd</objURI>
               <objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
               <objURI>urn:ietf:params:xml:ns:keyrelay-1.0</objURI>
               <svcExtension>
@@ -47,8 +47,8 @@ describe EppXml::Session do
               <lang>en</lang>
             </options>
             <svcs>
-              <objURI>urn:ietf:params:xml:ns:domain-1.0</objURI>
-              <objURI>urn:ietf:params:xml:ns:contact-1.0</objURI>
+              <objURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd</objURI>
+              <objURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/contact-eis-1.0.xsd</objURI>
               <objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
               <objURI>urn:ietf:params:xml:ns:keyrelay-1.0</objURI>
               <svcExtension>

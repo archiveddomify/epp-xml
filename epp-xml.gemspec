@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name        = 'epp-xml'
-  s.version     = '1.0.2'
-  s.date        = '2014-10-22'
-  s.summary     = 'Gem for generating XML for EPP requests'
-  s.description = 'Gem for generating valid XML for Extensible Provisioning Protocol requests'
+  s.version     = '1.0.3'
+  s.date        = '2015-06-16'
+  s.summary     = 'Gem for generating XML for EIS EPP requests'
+  s.description = 'Gem for generating valid XML for EIS Extensible Provisioning Protocol requests'
   s.authors     = ['GiTLAB LTD']
   s.email       = 'info@gitlab.eu'
   s.files       = ['lib/epp-xml.rb', 'lib/client_transaction_id.rb', 'lib/epp-xml/domain.rb', 'lib/epp-xml/contact.rb', 'lib/epp-xml/session.rb', 'lib/epp-xml/keyrelay.rb']

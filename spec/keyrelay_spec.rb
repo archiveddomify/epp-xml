@@ -7,7 +7,7 @@ describe EppXml::Keyrelay do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
       xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1"
-      xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+      xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd"
       xmlns:ext="urn:ietf:params:xml:ns:keyrelay-1.0">
         <command>
           <ext:keyrelay>
@@ -61,7 +61,7 @@ describe EppXml::Keyrelay do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
       xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1"
-      xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+      xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd"
       xmlns:ext="urn:ietf:params:xml:ns:keyrelay-1.0">
         <command>
           <ext:keyrelay>

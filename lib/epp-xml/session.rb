@@ -15,8 +15,8 @@ class EppXml
         },
         svcs: {
           _objURIs: [
-            { objURI: { value: 'urn:ietf:params:xml:ns:domain-1.0' } },
-            { objURI: { value: 'urn:ietf:params:xml:ns:contact-1.0' } },
+            { objURI: { value: 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd' } },
+            { objURI: { value: 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/contact-eis-1.0.xsd' } },
             { objURI: { value: 'urn:ietf:params:xml:ns:host-1.0' } },
             { objURI: { value: 'urn:ietf:params:xml:ns:keyrelay-1.0' } }
           ],
