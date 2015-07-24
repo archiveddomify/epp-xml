@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'epp-xml'
-  s.version     = '1.0.3'
-  s.date        = '2015-06-16'
+  s.version     = '1.0.4'
+  s.date        = '2015-07-24'
   s.summary     = 'Gem for generating XML for EIS EPP requests'
   s.description = 'Gem for generating valid XML for EIS Extensible Provisioning Protocol requests'
   s.authors     = ['GiTLAB LTD']

@@ -15,13 +15,13 @@ describe EppXml::Session do
               <lang>en</lang>
             </options>
             <svcs>
-              <objURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd</objURI>
-              <objURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/contact-eis-1.0.xsd</objURI>
+              <objURI>https://epp.tld.ee/schema/domain-eis-1.0.xsd</objURI>
+              <objURI>https://epp.tld.ee/schema/contact-eis-1.0.xsd</objURI>
               <objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
               <objURI>urn:ietf:params:xml:ns:keyrelay-1.0</objURI>
               <svcExtension>
                 <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-                <extURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd</extURI>
+                <extURI>https://epp.tld.ee/schema/eis-1.0.xsd</extURI>
               </svcExtension>
             </svcs>
           </login>
@@ -47,13 +47,13 @@ describe EppXml::Session do
               <lang>en</lang>
             </options>
             <svcs>
-              <objURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd</objURI>
-              <objURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/contact-eis-1.0.xsd</objURI>
+              <objURI>https://epp.tld.ee/schema/domain-eis-1.0.xsd</objURI>
+              <objURI>https://epp.tld.ee/schema/contact-eis-1.0.xsd</objURI>
               <objURI>urn:ietf:params:xml:ns:host-1.0</objURI>
               <objURI>urn:ietf:params:xml:ns:keyrelay-1.0</objURI>
               <svcExtension>
                 <extURI>urn:ietf:params:xml:ns:secDNS-1.1</extURI>
-                <extURI>https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd</extURI>
+                <extURI>https://epp.tld.ee/schema/eis-1.0.xsd</extURI>
               </svcExtension>
             </svcs>
           </login>
@@ -113,7 +113,7 @@ describe EppXml::Session do
           <poll op="ack" msgID="12345" />
 
           <extension>
-            <eis:extdata xmlns:eis="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd">
+            <eis:extdata xmlns:eis="https://epp.tld.ee/schema/eis-1.0.xsd">
               <eis:legalDocument type="ddoc">base64</eis:legalDocument>
             </eis:extdata>
           </extension>

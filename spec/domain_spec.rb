@@ -9,7 +9,7 @@ describe EppXml::Domain do
         <command>
           <create>
             <domain:create
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd" />
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd" />
           </create>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -26,7 +26,7 @@ describe EppXml::Domain do
         <command>
           <create>
             <domain:create
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>one.ee</domain:name>
               <domain:period unit="d">345</domain:period>
               <domain:ns>
@@ -69,7 +69,7 @@ describe EppXml::Domain do
         <command>
           <create>
             <domain:create
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>one.ee</domain:name>
             </domain:create>
           </create>
@@ -96,7 +96,7 @@ describe EppXml::Domain do
         <command>
           <create>
             <domain:create
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>one.ee</domain:name>
               <domain:period unit="d">345</domain:period>
               <domain:ns>
@@ -187,7 +187,7 @@ describe EppXml::Domain do
         <command>
           <create>
             <domain:create
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>one.ee</domain:name>
               <domain:period unit="d">345</domain:period>
               <domain:ns>
@@ -207,7 +207,7 @@ describe EppXml::Domain do
             </domain:create>
           </create>
           <extension>
-            <eis:extdata xmlns:eis="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd">
+            <eis:extdata xmlns:eis="https://epp.tld.ee/schema/eis-1.0.xsd">
               <eis:legalDocument type="ddoc">base64</eis:legalDocument>
             </eis:extdata>
           </extension>
@@ -255,7 +255,7 @@ describe EppXml::Domain do
         <command>
           <info>
             <domain:info
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd" />
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd" />
           </info>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -271,7 +271,7 @@ describe EppXml::Domain do
         <command>
           <info>
             <domain:info
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name hosts="sub">one.ee</domain:name>
               <domain:authInfo>
                 <domain:pw>b3rafsla</domain:pw>
@@ -300,7 +300,7 @@ describe EppXml::Domain do
         <command>
           <check>
             <domain:check
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd" />
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd" />
           </check>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -315,7 +315,7 @@ describe EppXml::Domain do
         <command>
           <check>
             <domain:check
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>example.ee</domain:name>
               <domain:name>example2.ee</domain:name>
               <domain:name>example3.ee</domain:name>
@@ -345,7 +345,7 @@ describe EppXml::Domain do
         <command>
           <update>
             <domain:update
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>example.ee</domain:name>
               <domain:add>
                 <domain:ns>
@@ -408,7 +408,7 @@ describe EppXml::Domain do
         <command>
           <update>
             <domain:update
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>one.ee</domain:name>
               <domain:add>
                 <domain:contact type="admin">sh8013</domain:contact>
@@ -469,7 +469,7 @@ describe EppXml::Domain do
         <command>
           <update>
             <domain:update
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>example.ee</domain:name>
               <domain:chg>
                 <domain:registrant>mak21</domain:registrant>
@@ -496,7 +496,7 @@ describe EppXml::Domain do
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
         <command>
           <update>
-            <domain:update xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+            <domain:update xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>example.ee</domain:name>
             </domain:update>
           </update>
@@ -529,7 +529,7 @@ describe EppXml::Domain do
                 </secDNS:dsData>
               </secDNS:add>
             </secDNS:update>
-            <eis:extdata xmlns:eis="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd">
+            <eis:extdata xmlns:eis="https://epp.tld.ee/schema/eis-1.0.xsd">
               <eis:legalDocument type="ddoc">base64</eis:legalDocument>
             </eis:extdata>
           </extension>
@@ -586,7 +586,7 @@ describe EppXml::Domain do
         <command>
           <delete>
             <domain:delete
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd" />
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd" />
           </delete>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -601,13 +601,13 @@ describe EppXml::Domain do
         <command>
           <delete>
             <domain:delete
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>one.ee</domain:name>
             </domain:delete>
           </delete>
 
           <extension>
-            <eis:extdata xmlns:eis="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd">
+            <eis:extdata xmlns:eis="https://epp.tld.ee/schema/eis-1.0.xsd">
               <eis:legalDocument type="ddoc">base64</eis:legalDocument>
             </eis:extdata>
           </extension>
@@ -634,7 +634,7 @@ describe EppXml::Domain do
         <command>
           <renew>
             <domain:renew
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd" />
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd" />
           </renew>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -649,7 +649,7 @@ describe EppXml::Domain do
         <command>
           <renew>
             <domain:renew
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>one.ee</domain:name>
               <domain:curExpDate>2009-11-15</domain:curExpDate>
               <domain:period unit="d">365</domain:period>
@@ -676,7 +676,7 @@ describe EppXml::Domain do
         <command>
           <transfer op="query">
             <domain:transfer
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd" />
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd" />
           </transfer>
           <clTRID>ABC-12345</clTRID>
         </command>
@@ -691,7 +691,7 @@ describe EppXml::Domain do
         <command>
           <transfer op="approve">
             <domain:transfer
-             xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+             xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
               <domain:name>one.ee</domain:name>
               <domain:authInfo>
                 <domain:pw roid="askdf">test</domain:pw>

@@ -27,7 +27,7 @@ class EppXml
       xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
         xml.command do
           xml.create do
-            xml.tag!('domain:create', 'xmlns:domain' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd') do
+            xml.tag!('domain:create', 'xmlns:domain' => 'https://epp.tld.ee/schema/domain-eis-1.0.xsd') do
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end
@@ -38,7 +38,7 @@ class EppXml
             end if dnssec_params.any?
 
             xml.tag!('eis:extdata',
-              'xmlns:eis' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd') do
+              'xmlns:eis' => 'https://epp.tld.ee/schema/eis-1.0.xsd') do
               EppXml.generate_xml_from_hash(custom_params, xml, 'eis:')
             end if custom_params.any?
           end if dnssec_params.any? || custom_params.any?
@@ -55,7 +55,7 @@ class EppXml
       xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
         xml.command do
           xml.update do
-            xml.tag!('domain:update', 'xmlns:domain' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd') do
+            xml.tag!('domain:update', 'xmlns:domain' => 'https://epp.tld.ee/schema/domain-eis-1.0.xsd') do
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end
@@ -66,7 +66,7 @@ class EppXml
             end
 
             xml.tag!('eis:extdata',
-              'xmlns:eis' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd') do
+              'xmlns:eis' => 'https://epp.tld.ee/schema/eis-1.0.xsd') do
               EppXml.generate_xml_from_hash(custom_params, xml, 'eis:')
             end if custom_params.any?
           end if dnssec_params.any? || custom_params.any?
@@ -83,7 +83,7 @@ class EppXml
       xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
         xml.command do
           xml.transfer('op' => op) do
-            xml.tag!('domain:transfer', 'xmlns:domain' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd') do
+            xml.tag!('domain:transfer', 'xmlns:domain' => 'https://epp.tld.ee/schema/domain-eis-1.0.xsd') do
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end
@@ -103,7 +103,7 @@ class EppXml
       xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
         xml.command do
           xml.tag!(command) do
-            xml.tag!("domain:#{command}", 'xmlns:domain' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd') do
+            xml.tag!("domain:#{command}", 'xmlns:domain' => 'https://epp.tld.ee/schema/domain-eis-1.0.xsd') do
               EppXml.generate_xml_from_hash(xml_params, xml, 'domain:')
             end
           end

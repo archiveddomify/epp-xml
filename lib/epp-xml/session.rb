@@ -15,14 +15,14 @@ class EppXml
         },
         svcs: {
           _objURIs: [
-            { objURI: { value: 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd' } },
-            { objURI: { value: 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/contact-eis-1.0.xsd' } },
+            { objURI: { value: 'https://epp.tld.ee/schema/domain-eis-1.0.xsd' } },
+            { objURI: { value: 'https://epp.tld.ee/schema/contact-eis-1.0.xsd' } },
             { objURI: { value: 'urn:ietf:params:xml:ns:host-1.0' } },
             { objURI: { value: 'urn:ietf:params:xml:ns:keyrelay-1.0' } }
           ],
           svcExtension: [
             { extURI: { value: 'urn:ietf:params:xml:ns:secDNS-1.1' } },
-            { extURI: { value: 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd' } }
+            { extURI: { value: 'https://epp.tld.ee/schema/eis-1.0.xsd' } }
           ]
         }
       }

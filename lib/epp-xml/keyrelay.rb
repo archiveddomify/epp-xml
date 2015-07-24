@@ -11,7 +11,7 @@ class EppXml
       xml.epp(
         'xmlns' => 'urn:ietf:params:xml:ns:epp-1.0',
         'xmlns:secDNS' => 'urn:ietf:params:xml:ns:secDNS-1.1',
-        'xmlns:domain' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd',
+        'xmlns:domain' => 'https://epp.tld.ee/schema/domain-eis-1.0.xsd',
         'xmlns:ext' => 'urn:ietf:params:xml:ns:keyrelay-1.0'
       ) do
         xml.tag!('command') do
@@ -34,7 +34,7 @@ class EppXml
           end
 
           xml.tag!('eis:extdata',
-            'xmlns:eis' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd') do
+            'xmlns:eis' => 'https://epp.tld.ee/schema/eis-1.0.xsd') do
             EppXml.generate_xml_from_hash(custom_params, xml, 'eis:')
           end if custom_params.any?
 

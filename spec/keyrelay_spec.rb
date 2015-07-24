@@ -7,7 +7,7 @@ describe EppXml::Keyrelay do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
       xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1"
-      xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd"
+      xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd"
       xmlns:ext="urn:ietf:params:xml:ns:keyrelay-1.0">
         <command>
           <ext:keyrelay>
@@ -25,7 +25,7 @@ describe EppXml::Keyrelay do
                <ext:relative>P1M13D</ext:relative>
             </ext:expiry>
           </ext:keyrelay>
-          <eis:extdata xmlns:eis="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/eis-1.0.xsd">
+          <eis:extdata xmlns:eis="https://epp.tld.ee/schema/eis-1.0.xsd">
             <eis:legalDocument type="ddoc">base64</eis:legalDocument>
           </eis:extdata>
           <ext:clTRID>ABC-12345</ext:clTRID>
@@ -61,7 +61,7 @@ describe EppXml::Keyrelay do
     expected = Nokogiri::XML('<?xml version="1.0" encoding="UTF-8" standalone="no"?>
       <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
       xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1"
-      xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd"
+      xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd"
       xmlns:ext="urn:ietf:params:xml:ns:keyrelay-1.0">
         <command>
           <ext:keyrelay>

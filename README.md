@@ -44,7 +44,7 @@ Results in:
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <command>
     <info>
-      <domain:info xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+      <domain:info xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
         <domain:name hosts="sub">one.ee</domain:name>
         <domain:authInfo>
           <domain:pw>b3rafsla</domain:pw>
@@ -77,7 +77,7 @@ puts Nokogiri(xml)
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <command>
     <check>
-      <domain:check xmlns:domain="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/domain-eis-1.0.xsd">
+      <domain:check xmlns:domain="https://epp.tld.ee/schema/domain-eis-1.0.xsd">
         <domain:name>example.ee</domain:name>
         <domain:name>example2.ee</domain:name>
         <domain:name>example3.ee</domain:name>
@@ -126,7 +126,7 @@ puts Nokogiri(xml)
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <command>
     <create>
-      <contact:create xmlns:contact="https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/contact-eis-1.0.xsd">
+      <contact:create xmlns:contact="https://epp.tld.ee/schema/contact-eis-1.0.xsd">
         <contact:id>sh8013</contact:id>
         <contact:postalInfo type="int">
           <contact:name>John Doe</contact:name>

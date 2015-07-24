@@ -31,7 +31,7 @@ class EppXml
       xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
         xml.command do
           xml.transfer('op' => op) do
-            xml.tag!('contact:transfer', 'xmlns:contact' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/contact-eis-1.0.xsd') do
+            xml.tag!('contact:transfer', 'xmlns:contact' => 'https://epp.tld.ee/schema/contact-eis-1.0.xsd') do
               EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
             end
           end
@@ -51,7 +51,7 @@ class EppXml
       xml.epp('xmlns' => 'urn:ietf:params:xml:ns:epp-1.0') do
         xml.command do
           xml.tag!(command) do
-            xml.tag!("contact:#{command}", 'xmlns:contact' => 'https://raw.githubusercontent.com/internetee/registry/alpha/doc/schemas/contact-eis-1.0.xsd') do
+            xml.tag!("contact:#{command}", 'xmlns:contact' => 'https://epp.tld.ee/schema/contact-eis-1.0.xsd') do
               EppXml.generate_xml_from_hash(xml_params, xml, 'contact:')
             end
           end
